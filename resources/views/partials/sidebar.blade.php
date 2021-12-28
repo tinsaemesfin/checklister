@@ -47,7 +47,7 @@
                                 <li class="nav-title">{{ __('Manage Checklists') }}</li>
                                 @foreach (\App\Models\ChecklistGroup::with('checklists')->get() as $group)
 
-                                    <li class="nav-group"><a class="nav-link"
+                                    <li class="nav-group"><a class="nav-link nav-group-toggle"
                                             href="{{ route('admin.checklist_groups.edit', $group->id) }}">
                                             <svg class="nav-icon">
                                                 <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
@@ -56,12 +56,19 @@
                                             @foreach ($group->checklists as $checklist)
 
                                                 <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.checklists.edit', $checklist->id) }}"><span
+                                                        href="{{ route('admin.checklist_groups.checklists.edit', $checklist) }}"><span
                                                             class="nav-icon"></span>
-                                                        {{ $chechlist->name }}</a>
+                                                        {{ $checklist->name }}</a>
                                                 </li>
                                             @endforeach
-
+                                            <li class="nav-item"><a class="nav-link"
+                                                href="{{ route('admin.checklist_groups.checklists.create',[$group,$checklist]) }}">
+                                                
+                                                <svg class="nav-icon">
+                                                    <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+                                                </svg> {{ __('New Checklist') }}</a>
+        
+                                        </li>
                                         </ul>
                                     </li>
                                 @endforeach
@@ -72,13 +79,7 @@
                                         </svg> {{ __('New Checklist Group') }}</a>
 
                                 </li>
-                                <li class="nav-item"><a class="nav-link"
-                                        href="{{ route('admin.checklists.create',$group) }}">
-                                        <svg class="nav-icon">
-                                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
-                                        </svg> {{ __('New Checklist') }}</a>
-
-                                </li>
+                                
                             @endif
                             <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreChecklistRequest;
+use App\Models\ChecklistGroup;
 use Illuminate\Http\Request;
 
 class ChecklistController extends Controller
@@ -22,9 +24,9 @@ class ChecklistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ChecklistGroup $checklistGroup)
     {
-       
+       return view('admin.checklists.create',compact('checklistGroup'));
     }
 
     /**
@@ -33,9 +35,10 @@ class ChecklistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreChecklistRequest $request, ChecklistGroup $checklistGroup)
     {
-        //
+        $checklistGroup->checklists()->create($request->validated());
+        return redirect()->route('home');
     }
 
     /**
