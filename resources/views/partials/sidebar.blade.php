@@ -37,15 +37,51 @@
 
                                     </ul>
                                 </li>
-                                <li class="nav-group"><a class="nav-link"
+                                <li class="nav-item"><a class="nav-link"
                                         href="{{ route('admin.pages.index') }}">
                                         <svg class="nav-icon">
                                             <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
                                         </svg> Pages</a>
 
                                 </li>
+                                <li class="nav-title">{{ __('Manage Checklists') }}</li>
+                                @foreach (\App\Models\ChecklistGroup::with('checklists')->get() as $group)
+
+                                    <li class="nav-group"><a class="nav-link"
+                                            href="{{ route('admin.checklist_groups.edit', $group->id) }}">
+                                            <svg class="nav-icon">
+                                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+                                            </svg> {{ $group->name }}</a>
+                                        <ul class="nav-group-items">
+                                            @foreach ($group->checklists as $checklist)
+
+                                                <li class="nav-item"><a class="nav-link"
+                                                        href="{{ route('admin.checklists.edit', $checklist->id) }}"><span
+                                                            class="nav-icon"></span>
+                                                        {{ $chechlist->name }}</a>
+                                                </li>
+                                            @endforeach
+
+                                        </ul>
+                                    </li>
+                                @endforeach
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('admin.checklist_groups.create') }}">
+                                        <svg class="nav-icon">
+                                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+                                        </svg> {{ __('New Checklist Group') }}</a>
+
+                                </li>
+                                <li class="nav-item"><a class="nav-link"
+                                        href="{{ route('admin.checklists.create',$group) }}">
+                                        <svg class="nav-icon">
+                                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
+                                        </svg> {{ __('New Checklist') }}</a>
+
+                                </li>
                             @endif
-                            <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <li class="nav-item"><a class="nav-link" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
                                     <svg class="nav-icon">
                                         <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
