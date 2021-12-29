@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreChecklistRequest;
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\Checklist;
-use App\Models\ChecklistGroup;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
-class ChecklistController extends Controller
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,9 +26,9 @@ class ChecklistController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ChecklistGroup $checklistGroup)
+    public function create()
     {
-       return view('admin.checklists.create',compact('checklistGroup'));
+        //
     }
 
     /**
@@ -36,10 +37,12 @@ class ChecklistController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreChecklistRequest $request, ChecklistGroup $checklistGroup)
+    public function store(StoreTaskRequest $request,Checklist $checklist)
     {
-        $checklistGroup->checklists()->create($request->validated());
-        return redirect()->route('home');
+        $checklist->tasks()->create($request->validated());
+        return redirect()->route('admin.checklist_groups.checklists.edit',[
+            $checklist->checklist_group_id,$checklist
+        ]);
     }
 
     /**
@@ -59,10 +62,9 @@ class ChecklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(ChecklistGroup $checklistGroup,Checklist $checklist)
+    public function edit(Checklist $checklist,Task $task)
     {
-        
-        return view('admin.checklists.edit',compact('checklistGroup','checklist'));
+        return view('admin.tasks.edit', compact('checklist','task'));
     }
 
     /**
@@ -72,11 +74,9 @@ class ChecklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreChecklistRequest $request, ChecklistGroup $checklistGroup,Checklist $checklist)
+    public function update(Request $request, $id)
     {
-        $checklist->update($request->validated());
-        return redirect()->route('home');
-
+        //
     }
 
     /**
@@ -85,10 +85,11 @@ class ChecklistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ChecklistGroup $checklistGroup,Checklist $checklist)
+    public function destroy(Checklist $checklist,Task $task)
     {
-       $checklist->delete();
-       return redirect()->route('home');
-
+        $task->delete();
+        return redirect()->route('admin.checklist_groups.checklists.edit',[
+            $checklist->checklist_group_id,$checklist
+        ]);
     }
 }
