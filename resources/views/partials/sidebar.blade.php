@@ -56,13 +56,13 @@
                                             @foreach ($group->checklists as $checklist)
 
                                                 <li class="nav-item"><a class="nav-link"
-                                                        href="{{ route('admin.checklist_groups.checklists.edit', $checklist) }}"><span
+                                                        href="{{ route('admin.checklist_groups.checklists.edit', [$group,$checklist]) }}"><span
                                                             class="nav-icon"></span>
                                                         {{ $checklist->name }}</a>
                                                 </li>
                                             @endforeach
                                             <li class="nav-item"><a class="nav-link"
-                                                href="{{ route('admin.checklist_groups.checklists.create',[$group,$checklist]) }}">
+                                                href="{{ route('admin.checklist_groups.checklists.create',[$group]) }}">
                                                 
                                                 <svg class="nav-icon">
                                                     <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-puzzle"></use>
