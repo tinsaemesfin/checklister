@@ -79,7 +79,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <textarea class="form-control" name="description" type="textarea"
-                                            placeholder="Description" rows="5"> </textarea>
+                                            placeholder="Description" id="task-textarea" rows="5"> </textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -94,4 +94,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('scripts')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#task-textarea' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection

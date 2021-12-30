@@ -28,7 +28,7 @@
                                 <div class="row form-group">
                                 <div class="col">
                                    
-                                    <textarea class="form-control" name="description"
+                                    <textarea id="task-textarea" class="form-control" name="description"
                                          rows="5" type="textarea">{{ $task->description }}</textarea>
                                 </div>
                                 </div>
@@ -47,4 +47,14 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#task-textarea' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
 @endsection

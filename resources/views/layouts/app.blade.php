@@ -123,6 +123,8 @@
     <!-- Option 1: CoreUI for Bootstrap Bundle with Popper -->
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('js/simplebar.min.js') }}"></script>
+    <script src="{{ asset('js/ckeditor.js') }}"></script>
+    @yield('scripts')
     @livewireScripts
     <script src="{{ asset('js/livewire-sortable.js') }}"></script>
 
