@@ -50,33 +50,8 @@
                     <h2> List Of Tasks </h2>
                     <div class="row">
                         <div class="col">
-                            <table class="table table-striped table-hover">
-                                <tbody>
-                                    @foreach ($checklist->tasks as $task)
-
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>{{ $task->name }}</td>
-                                            <td>
-                                                <a class="btn btn-primary" href="{{ route('admin.checklists.tasks.edit', [$checklist,$task]) }}"> Edit </a>
-                                                <form style="display:inline-block"
-                                                    action="{{ route('admin.checklists.tasks.destroy', [$checklist,$task]) }}"
-                                                    method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <button class="btn btn-danger" type="submit"
-                                                                onclick="return confirm('Are you Sure?')">Delete</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
+                            @livewire('tasks-table',['checklist'=>$checklist])
+                            
                         </div>
                     </div>
 
