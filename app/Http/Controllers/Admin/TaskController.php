@@ -74,9 +74,12 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreTaskRequest $request,Checklist $checklist,Task $task)
     {
-        //
+        $task->update($request->validated());
+        return redirect()->route('admin.checklist_groups.checklists.edit',[
+            $checklist->checklist_group_id,$checklist
+        ]);
     }
 
     /**
