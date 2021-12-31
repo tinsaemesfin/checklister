@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StroreChecklistGroupRequest as RequestsStroreChecklistGroupRequest;
+use App\Http\Requests\UpdateChecklistGroupRequest;
 use App\Models\ChecklistGroup;
 use Illuminate\Http\Request;
 
@@ -72,7 +73,7 @@ class ChecklistGroupController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(RequestsStroreChecklistGroupRequest $request, ChecklistGroup $checklistGroup)
+    public function update(UpdateChecklistGroupRequest $request, ChecklistGroup $checklistGroup)
     {
         $checklistGroup->update($request->validated());
         return redirect()->route('home');
